@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 const MONTHS = ['January','February','March','April','May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -9,19 +9,28 @@ function App() {
   const cd = new Date();
   const date = `${cd.getMonth()+1}/${cd.getDate()}/${cd.getFullYear()}`;
   const YEARS = yearGenerator();
-
-  const [month, setMonth] = useState(MONTHS[cd.getMonth()]);
-  const [year, setYear] = useState(YEARS[50]);
-
   
+  let [startYear, setStartYear] = useState(50);
+  let [curMonth, setCurMonth] = useState(cd.getMonth());
+  const [month, setMonth] = useState(MONTHS[curMonth]);
+  const [year, setYear] = useState(YEARS[startYear]);
+
+  useEffect(() => {
+    setMonth(MONTHS[curMonth]);
+  }, [curMonth]);
+
+  useEffect(() => {
+    setYear(YEARS[startYear]);
+  }, [startYear, YEARS]);
+
 
   return (
     <div className="App">
       <header className="App-header">
         <div className='hButtons'>
         <h1>National Holiday Calendar for USA</h1>
-        <button >Left Big Arrow</button>
-        <button >Left Small Arrow</button>
+        <button onClick={() => setStartYear(startYear-=1)}>Left Big Arrow</button>
+        <button onClick={() => setCurMonth(curMonth-=1)} >Left Small Arrow</button>
         <label htmlFor='Month' > Month </label>
           <select
             id='month'
@@ -58,8 +67,8 @@ function App() {
               </option>
             ))}
           </select>
-        <button >Right Small Arrow</button>
-        <button >Right Big Arrow</button>
+        <button onClick={() => setCurMonth(curMonth+=1)}>Right Small Arrow</button>
+        <button onClick={() => setStartYear(startYear+=1)}>Right Big Arrow</button>
         <p> Current Date: {date} </p>
         </div>
       </header>
