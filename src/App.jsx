@@ -123,3 +123,18 @@ export default App;
 
 
 // <-- close holding div -->
+
+
+/* NOTES BELOW
+
+get buttons and initial data working ---- done
+
+access country location via IP, provide option to choose as well 
+
+build actual calendar space 
+
+build day components or populate the day spaces another way
+
+populate calendar with holiday information
+
+*/
