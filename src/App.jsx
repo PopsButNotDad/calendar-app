@@ -1,45 +1,85 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
+
+const MONTHS = ['January','February','March','April','May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 
 
 function App() {
   const cd = new Date();
   const date = `${cd.getMonth()+1}/${cd.getDate()}/${cd.getFullYear()}`;
+  const YEARS = yearGenerator();
 
-  console.log(cd.getMonth());
+  const [month, setMonth] = useState(MONTHS[cd.getMonth()]);
+  const [year, setYear] = useState(YEARS[50]);
 
-
-
+  
 
   return (
     <div className="App">
       <header className="App-header">
+        <div className='hButtons'>
         <h1>National Holiday Calendar for USA</h1>
         <button >Left Big Arrow</button>
         <button >Left Small Arrow</button>
-          <select name="months" className="monthPicker">
-            <option value={0}>January</option>
-            <option value={1}>February</option>
-            <option value={2}>March</option>
-            <option value={3}>April</option>
-            <option value={4}>May</option>
-            <option value={5}>June</option>
-            <option value={6}>July</option>
-            <option value={7}>August</option>
-            <option value={8}>September</option>
-            <option value={9}>October</option>
-            <option value={10}>November</option>
-            <option value={11}>December</option>
+        <label htmlFor='Month' > Month </label>
+          <select
+            id='month'
+            value={month}
+            onChange={(e) => {
+              setMonth(e.target.value);
+            }}
+            onBlur={(e) => {
+              setMonth(e.target.value);
+            }}
+          >
+            <option />
+            {MONTHS.map((month)=> (
+              <option key={month} value={month}>
+                {month}
+              </option>
+            ))}
+          </select>
+          <label htmlFor='Year'> Year </label>
+          <select
+            id='year'
+            value={year}
+            onChange={(e) => {
+              setYear(e.target.value);
+            }}
+            onBlur={(e) => {
+              setYear(e.target.value);
+            }}
+          >
+            <option />
+            {YEARS.map((year)=> (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
           </select>
         <button >Right Small Arrow</button>
         <button >Right Big Arrow</button>
         <p> Current Date: {date} </p>
+        </div>
       </header>
     </div>
   );
+
+  //helper functions
+function yearGenerator(){
+  let arr = [];
+  for(let i = (cd.getFullYear() - 50); i <= (cd.getFullYear() + 50); i++){
+    arr.push(i);
+  }
+  return arr;
+  
+}
+  
 }
 
 export default App;
+
 
 
 
