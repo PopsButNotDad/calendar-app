@@ -31,7 +31,6 @@ function App() {
         <h1>National Holiday Calendar for USA</h1>
         <button onClick={() => setStartYear(startYear-=1)}>Left Big Arrow</button>
         <button onClick={() => setCurMonth(curMonth-=1)} >Left Small Arrow</button>
-        <label htmlFor='Month' > Month </label>
           <select
             id='month'
             value={month}
@@ -49,7 +48,6 @@ function App() {
               </option>
             ))}
           </select>
-          <label htmlFor='Year'> Year </label>
           <select
             id='year'
             value={year}
