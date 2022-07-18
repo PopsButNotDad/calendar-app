@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DayComponent from "./DayComponent";
+import "./styles.css";
 
 const MONTHS = [
   "January",
@@ -28,6 +29,11 @@ function App() {
 
   const daysInCurMonth = getDaysInMonth(curMonth + 1, startYear);
   //need to get what day of the week the selected month starts on.
+  const startDay = new Date(
+    YEARS[startYear] + "-" + (curMonth + 1) + "-1"
+  ).getDay();
+
+  const lastDay = getLastDay(YEARS[startYear], curMonth);
 
   useEffect(() => {
     setMonth(MONTHS[curMonth]);
@@ -90,7 +96,12 @@ function App() {
         </button>
         <p> Current Date: {date} </p>
       </div>
-      <DayComponent curDay={cd.getDate()} numOfDays={daysInCurMonth} />
+      <DayComponent
+        curDay={cd.getDate()}
+        numOfDays={daysInCurMonth}
+        startDay={startDay}
+        lastDay={lastDay}
+      />
     </div>
   );
 
@@ -106,6 +117,10 @@ function App() {
   //January is index 1
   function getDaysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
+  }
+
+  function getLastDay(y, m) {
+    return new Date(y, m + 1, 0).getDate();
   }
 }
 
@@ -146,7 +161,10 @@ get buttons and initial data working ---- done
 
 access country location via IP, provide option to choose as well 
 
---- build actual calendar space ---
+fix bug with small arrow button so it loops around to previous month previous year when hit back on january
+  and vice versa on hitting forward on december
+
+build actual calendar space ---- done 
 
 build day components or populate the day spaces another way
 

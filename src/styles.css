@@ -1,0 +1,21 @@
+.day-ind {
+  border: solid 5px orange;
+  height: 100px;
+  width: 100px;
+}
+
+.days-tain {
+  border: solid 5px lightcoral;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+h2 {
+  color: crimson;
+}
+
+button {
+  background-color: aquamarine;
+  margin: 5px;
+}
