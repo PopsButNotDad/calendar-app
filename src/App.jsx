@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DayComponent from "./DayComponent";
+import DayHeader from "./DayHeader";
 import "./styles.css";
 
 const MONTHS = [
@@ -42,16 +43,13 @@ function App() {
 
   useEffect(() => {
     setYear(YEARS[startYear]);
-  }, [startYear]);
+  }, [startYear, YEARS]);
 
   return (
     <div className="App">
       <header className="App-header"></header>
       <div className="hButtons">
         <h1>National Holiday Calendar for USA</h1>
-        <button onClick={() => setStartYear((startYear -= 1))}>
-          Left Big Arrow
-        </button>
         <button onClick={() => decrementMonth()}>Left Small Arrow</button>
         <select
           id="month"
@@ -88,12 +86,10 @@ function App() {
           ))}
         </select>
         <button onClick={() => incrementMonth()}>Right Small Arrow</button>
-        <button onClick={() => setStartYear((startYear += 1))}>
-          Right Big Arrow
-        </button>
       </div>
+      <DayHeader />
       <DayComponent
-        curDay={cd.getDate()}
+        curDay={cd.getDate() + 1}
         numOfDays={daysInCurMonth}
         startDay={startDay}
         lastDay={lastDay}
@@ -103,7 +99,7 @@ function App() {
     </div>
   );
 
-  //helper functions
+  //--------------------------helper functions---------------------------------
   function yearGenerator(x, y) {
     let arr = [];
     for (let i = cd.getFullYear() - x; i <= cd.getFullYear() + y; i++) {
@@ -181,7 +177,9 @@ fix bug with small arrow button so it loops around to previous month previous ye
   and vice versa on hitting forward on december ---- done
 
 build actual calendar space 
-  need to label the days properly at the top of the columns, then will be finished.
+  need to label the days properly at the top of the columns, then will be finished. ---- DONE
+
+fix bug with current day highlighting only the current day and not that day every month.
 
 build day components or populate the day spaces another way
 

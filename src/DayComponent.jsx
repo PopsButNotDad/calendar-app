@@ -1,16 +1,6 @@
 import React from "react";
 import "./styles.css";
 
-const DAYS = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
 function DayComponent(props) {
   const daysContainer = [];
 
@@ -24,16 +14,10 @@ function DayComponent(props) {
 
   return (
     <div className="days-tain">
-      {/* <div className="day-label">
-        {DAYS.map((x) => (
-          <div className="weekday-labels">
-            <p>{x}</p>
-          </div>
-        ))}
-      </div> */}
       {daysContainer.map((day) => (
         <div className="day-ind">
           <h2>{day.inline}</h2>
+          <p>{day.current}</p>
         </div>
       ))}
     </div>
@@ -46,6 +30,10 @@ function DayComponent(props) {
       if (j <= props.lastDay) {
         daysContainer[i].inline = j;
         j++;
+
+        if (j === props.curDay) {
+          daysContainer[i].current = "this is the current day";
+        }
       }
     }
   }
