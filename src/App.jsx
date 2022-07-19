@@ -20,11 +20,11 @@ const MONTHS = [
 
 function App() {
   const cd = new Date();
-  const date = `${cd.getMonth() + 1}/${cd.getDate()}/${cd.getFullYear()}`;
   const YEARS = yearGenerator(50, 50);
-
   let [startYear, setStartYear] = useState(50);
   let [curMonth, setCurMonth] = useState(cd.getMonth());
+
+  const [holiday, setHolidays] = useState([]);
 
   //specifically for the drop down, not for the functionality
   const [month, setMonth] = useState(MONTHS[curMonth]);
@@ -44,6 +44,10 @@ function App() {
   useEffect(() => {
     setYear(YEARS[startYear]);
   }, [startYear, YEARS]);
+
+  useEffect(() => {
+    requestHolidays();
+  }, []);
 
   return (
     <div className="App">
@@ -89,13 +93,14 @@ function App() {
       </div>
       <DayHeader />
       <DayComponent
+        year={year}
+        month={curMonth}
+        holiday={holiday}
         curDay={cd.getDate() + 1}
         numOfDays={daysInCurMonth}
         startDay={startDay}
         lastDay={lastDay}
       />
-
-      <p> Current Date: {date} </p>
     </div>
   );
 
@@ -133,6 +138,16 @@ function App() {
     } else {
       setCurMonth((curMonth -= 1));
     }
+  }
+
+  async function requestHolidays() {
+    const res = await fetch(
+      `https://date.nager.at/api/v3/PublicHolidays/${year}/US`
+    );
+
+    const json = await res.json();
+
+    setHolidays(json);
   }
 }
 
