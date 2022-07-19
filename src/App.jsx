@@ -20,20 +20,21 @@ const MONTHS = [
 function App() {
   const cd = new Date();
   const date = `${cd.getMonth() + 1}/${cd.getDate()}/${cd.getFullYear()}`;
-  const YEARS = yearGenerator();
+  const YEARS = yearGenerator(50, 50);
 
   let [startYear, setStartYear] = useState(50);
   let [curMonth, setCurMonth] = useState(cd.getMonth());
+
+  //specifically for the drop down, not for the functionality
   const [month, setMonth] = useState(MONTHS[curMonth]);
+  //specifically for the drop down, not for the functionality
   const [year, setYear] = useState(YEARS[startYear]);
 
   const daysInCurMonth = getDaysInMonth(curMonth + 1, startYear);
   //need to get what day of the week the selected month starts on.
-  const startDay = new Date(
-    YEARS[startYear] + "-" + (curMonth + 1) + "-1"
-  ).getDay();
+  const startDay = new Date(year + "-" + (curMonth + 1) + "-1").getDay();
 
-  const lastDay = getLastDay(YEARS[startYear], curMonth);
+  const lastDay = getLastDay(year, curMonth);
 
   useEffect(() => {
     setMonth(MONTHS[curMonth]);
@@ -51,9 +52,7 @@ function App() {
         <button onClick={() => setStartYear((startYear -= 1))}>
           Left Big Arrow
         </button>
-        <button onClick={() => setCurMonth((curMonth -= 1))}>
-          Left Small Arrow
-        </button>
+        <button onClick={() => decrementMonth()}>Left Small Arrow</button>
         <select
           id="month"
           value={month}
@@ -88,13 +87,10 @@ function App() {
             </option>
           ))}
         </select>
-        <button onClick={() => setCurMonth((curMonth += 1))}>
-          Right Small Arrow
-        </button>
+        <button onClick={() => incrementMonth()}>Right Small Arrow</button>
         <button onClick={() => setStartYear((startYear += 1))}>
           Right Big Arrow
         </button>
-        <p> Current Date: {date} </p>
       </div>
       <DayComponent
         curDay={cd.getDate()}
@@ -102,13 +98,15 @@ function App() {
         startDay={startDay}
         lastDay={lastDay}
       />
+
+      <p> Current Date: {date} </p>
     </div>
   );
 
   //helper functions
-  function yearGenerator() {
+  function yearGenerator(x, y) {
     let arr = [];
-    for (let i = cd.getFullYear() - 50; i <= cd.getFullYear() + 50; i++) {
+    for (let i = cd.getFullYear() - x; i <= cd.getFullYear() + y; i++) {
       arr.push(i);
     }
     return arr;
@@ -121,6 +119,24 @@ function App() {
 
   function getLastDay(y, m) {
     return new Date(y, m + 1, 0).getDate();
+  }
+
+  function incrementMonth() {
+    if (curMonth === 11) {
+      setCurMonth(0);
+      setStartYear((startYear += 1));
+    } else {
+      setCurMonth((curMonth += 1));
+    }
+  }
+
+  function decrementMonth() {
+    if (curMonth === 0) {
+      setCurMonth(11);
+      setStartYear((startYear -= 1));
+    } else {
+      setCurMonth((curMonth -= 1));
+    }
   }
 }
 
@@ -162,9 +178,10 @@ get buttons and initial data working ---- done
 access country location via IP, provide option to choose as well 
 
 fix bug with small arrow button so it loops around to previous month previous year when hit back on january
-  and vice versa on hitting forward on december
+  and vice versa on hitting forward on december ---- done
 
-build actual calendar space ---- done 
+build actual calendar space 
+  need to label the days properly at the top of the columns, then will be finished.
 
 build day components or populate the day spaces another way
 

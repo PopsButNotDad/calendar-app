@@ -11,6 +11,11 @@
   gap: 5px;
 }
 
+/* .weekday-labels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+} */
+
 h2 {
   color: crimson;
 }
