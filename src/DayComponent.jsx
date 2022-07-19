@@ -6,8 +6,6 @@ function DayComponent(props) {
 
   const holidayObj = props.holiday;
 
-  //console.log(holidayObj);
-
   for (let i = 0; i < 42; i++) {
     daysContainer.push({
       number: `${i}`,
@@ -16,7 +14,7 @@ function DayComponent(props) {
   }
 
   startDays();
-  //insertHolidays();
+  insertHolidays();
 
   return (
     <div className="days-tain">
@@ -29,7 +27,7 @@ function DayComponent(props) {
     </div>
   );
 
-  //helper functions
+  // ---------------------- helper functions --------------------------
   function startDays() {
     let j = 1;
     for (let i = props.startDay; i <= daysContainer.length; i++) {
@@ -44,13 +42,11 @@ function DayComponent(props) {
   }
 
   function insertHolidays() {
-    for (let i = props.startDay; i <= daysContainer.length; i++) {
-      for (let j = 0; j <= holidayObj.length; i++) {
-        console.log(daysContainer[i].dat);
-        //console.log(holidayObj[j].date);
-        // if (daysContainer[i].dat === holidayObj[j].date) {
-        //   daysContainer.info = `${holidayObj.name}`;
-        // }
+    for (let i = props.startDay; i < daysContainer.length; i++) {
+      for (let j = 0; j < holidayObj.length; j++) {
+        if (daysContainer[i].dat === holidayObj[j].date) {
+          daysContainer[i].info = `${holidayObj[j].name}`;
+        }
       }
     }
   }

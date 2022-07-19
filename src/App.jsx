@@ -194,10 +194,10 @@ fix bug with small arrow button so it loops around to previous month previous ye
 build actual calendar space 
   need to label the days properly at the top of the columns, then will be finished. ---- DONE
 
+fix bug where numerical year/month doesnt change when selecting from drop down menu
+
 fix bug with current day highlighting only the current day and not that day every month.
 
-build day components or populate the day spaces another way
-
-populate calendar with holiday information
+populate calendar with holiday information ---- KINDA DONE
 
 */
