@@ -196,6 +196,8 @@ build actual calendar space
 
 fix bug where numerical year/month doesnt change when selecting from drop down menu
 
+fix bug with certain holidays not being on the correct day.
+
 fix bug with current day highlighting only the current day and not that day every month.
 
 populate calendar with holiday information ---- KINDA DONE
