@@ -29,7 +29,7 @@ function App() {
   const [month, setMonth] = useState(MONTHS[curMonth]);
   //specifically for the drop down, not for the functionality
   const [year, setYear] = useState(YEARS[startYear]);
-  const [country, setCountry] = useState(COUNTRIES[103]);
+  const [countryName, setCountryName] = useState("United States");
 
   const daysInCurMonth = getDaysInMonth(curMonth + 1, startYear);
   //need to get what day of the week the selected month starts on.
@@ -58,12 +58,12 @@ function App() {
           <h1>National Holiday Calendar for USA</h1>
           <select
             id="country"
-            value={country}
+            value={countryName}
             onChange={(e) => {
-              countryFinder(e.target.value);
+              setCountryName(e.target.value);
             }}
             onBlur={(e) => {
-              countryFinder(e.target.value);
+              setCountryName(e.target.value);
             }}
           ></select>
         </div>
@@ -147,7 +147,7 @@ function App() {
   function countryFinder(x) {
     for (let i = 0; i <= COUNTRIES.length; i++) {
       if (COUNTRIES[i].name === x) {
-        setCountry(COUNTRIES[i]);
+        setCountryName(COUNTRIES[i].name);
       }
     }
   }
