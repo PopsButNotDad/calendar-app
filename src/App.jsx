@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import DayComponent from "./DayComponent";
 import DayHeader from "./DayHeader";
 import "./styles.css";
+import COUNTRIES from "./countryList";
 
 const MONTHS = [
   "January",
@@ -23,13 +24,12 @@ function App() {
   const YEARS = yearGenerator(50, 50);
   let [startYear, setStartYear] = useState(50);
   let [curMonth, setCurMonth] = useState(cd.getMonth());
-
   const [holiday, setHolidays] = useState([]);
-
   //specifically for the drop down, not for the functionality
   const [month, setMonth] = useState(MONTHS[curMonth]);
   //specifically for the drop down, not for the functionality
   const [year, setYear] = useState(YEARS[startYear]);
+  const [country, setCountry] = useState(COUNTRIES[103]);
 
   const daysInCurMonth = getDaysInMonth(curMonth + 1, startYear);
   //need to get what day of the week the selected month starts on.
@@ -56,6 +56,16 @@ function App() {
       <div className="h-Buttons">
         <div className="title">
           <h1>National Holiday Calendar for USA</h1>
+          <select
+            id="country"
+            value={country}
+            onChange={(e) => {
+              countryFinder(e.target.value);
+            }}
+            onBlur={(e) => {
+              countryFinder(e.target.value);
+            }}
+          ></select>
         </div>
         <div className="btns">
           <button onClick={() => decrementMonth()}>
@@ -132,6 +142,14 @@ function App() {
     const json = await res.json();
 
     setHolidays(json);
+  }
+
+  function countryFinder(x) {
+    for (let i = 0; i <= COUNTRIES.length; i++) {
+      if (COUNTRIES[i].name === x) {
+        setCountry(COUNTRIES[i]);
+      }
+    }
   }
 }
 
