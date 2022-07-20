@@ -58,12 +58,16 @@ function App() {
           <h1>National Holiday Calendar for USA</h1>
         </div>
         <div className="btns">
-          <button onClick={() => decrementMonth()}>Month--</button>
+          <button onClick={() => decrementMonth()}>
+            {MONTHS[curMonth - 1]}
+          </button>
           <p>
             {" "}
             {month}, {year}{" "}
           </p>
-          <button onClick={() => incrementMonth()}>Month++</button>
+          <button onClick={() => incrementMonth()}>
+            {MONTHS[curMonth + 1]}
+          </button>
         </div>
       </div>
       <DayHeader />
@@ -129,27 +133,6 @@ function App() {
 
     setHolidays(json);
   }
-
-  // function findYearIndex(arr) {
-  //   let x = 0;
-  //   for (let i = 0; i <= arr.length; i++) {
-  //     if (year === arr[i]) {
-  //       x = i;
-  //     }
-  //   }
-
-  //   return x;
-  // }
-
-  // function findMonthIndex(arr) {
-  //   let x = 0;
-  //   for (let i = 0; i <= arr.length; i++) {
-  //     if (month === arr[i]) {
-  //       x = i;
-  //     }
-  //   }
-  //   setCurMonth(x + 1);
-  // }
 }
 
 export default App;
@@ -202,6 +185,27 @@ fix bug with certain holidays not being on the correct day.
 fix bug with current day highlighting only the current day and not that day every month.
 
 populate calendar with holiday information ---- KINDA DONE
+
+  // function findYearIndex(arr) {
+  //   let x = 0;
+  //   for (let i = 0; i <= arr.length; i++) {
+  //     if (year === arr[i]) {
+  //       x = i;
+  //     }
+  //   }
+
+  //   return x;
+  // }
+
+  // function findMonthIndex(arr) {
+  //   let x = 0;
+  //   for (let i = 0; i <= arr.length; i++) {
+  //     if (month === arr[i]) {
+  //       x = i;
+  //     }
+  //   }
+  //   setCurMonth(x + 1);
+  // }
 
 POTENTIAL DROP DOWN
  <select

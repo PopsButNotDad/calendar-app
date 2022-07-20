@@ -131,14 +131,13 @@ table {
 /* ----------------- RESET OVER -------------- */
 
 .day-ind {
-  background-color: rgba(232, 232, 232, 0.8);
+  background-color: rgba(182, 182, 182, 0.8);
   width: auto;
   height: 100px;
   border-radius: 15px;
 }
 
 .days-tain {
-  background-color: rgba(179, 179, 179, 0.8);
   padding: 1% 0%;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -158,7 +157,6 @@ table {
 }
 
 .day-head {
-  background-color: rgba(179, 179, 179, 0.8);
   padding-top: 1%;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -188,6 +186,7 @@ table {
 
 .btns p {
   padding: 1%;
+  font-size: 1.5rem;
 }
 
 .btns button {
