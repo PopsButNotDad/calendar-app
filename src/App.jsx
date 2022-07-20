@@ -29,7 +29,7 @@ function App() {
   const [month, setMonth] = useState(MONTHS[curMonth]);
   //specifically for the drop down, not for the functionality
   const [year, setYear] = useState(YEARS[startYear]);
-  const [countryName, setCountryName] = useState("United States");
+  // const [countryName, setCountryName] = useState("United States");
 
   const daysInCurMonth = getDaysInMonth(curMonth + 1, startYear);
   //need to get what day of the week the selected month starts on.
