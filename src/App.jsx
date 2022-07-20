@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import DayComponent from "./DayComponent";
 import DayHeader from "./DayHeader";
 import "./styles.css";
-import COUNTRIES from "./countryList";
 
 const MONTHS = [
   "January",
@@ -22,6 +21,7 @@ const MONTHS = [
 function App() {
   const cd = new Date();
   const YEARS = yearGenerator(50, 50);
+  // const countryNameList = countryNameListGen(COUNTRIES);
   let [startYear, setStartYear] = useState(50);
   let [curMonth, setCurMonth] = useState(cd.getMonth());
   const [holiday, setHolidays] = useState([]);
@@ -29,7 +29,9 @@ function App() {
   const [month, setMonth] = useState(MONTHS[curMonth]);
   //specifically for the drop down, not for the functionality
   const [year, setYear] = useState(YEARS[startYear]);
-  // const [countryName, setCountryName] = useState("United States");
+  const [countryName, setCountryName] = useState("United States");
+  const [countryCode, setCountryCode] = useState("US");
+  const [countryList, setCountryList] = useState([]);
 
   const daysInCurMonth = getDaysInMonth(curMonth + 1, startYear);
   //need to get what day of the week the selected month starts on.
@@ -50,12 +52,16 @@ function App() {
     requestHolidays();
   }, [year, startYear]);
 
+  useEffect(() => {
+    requestCountries();
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header"></header>
       <div className="h-Buttons">
         <div className="title">
-          <h1>National Holiday Calendar for USA</h1>
+          <h1>National Holiday Calendar for {countryName}</h1>
           <select
             id="country"
             value={countryName}
@@ -65,7 +71,13 @@ function App() {
             onBlur={(e) => {
               setCountryName(e.target.value);
             }}
-          ></select>
+          >
+            {countryList.map((e) => (
+              <option key={e.name} value={e.name}>
+                {e.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="btns">
           <button onClick={() => decrementMonth()}>
@@ -136,7 +148,7 @@ function App() {
 
   async function requestHolidays() {
     const res = await fetch(
-      `https://date.nager.at/api/v3/PublicHolidays/${year}/US`
+      `https://date.nager.at/api/v3/PublicHolidays/${year}/${countryCode}`
     );
 
     const json = await res.json();
@@ -144,12 +156,21 @@ function App() {
     setHolidays(json);
   }
 
-  function countryFinder(x) {
-    for (let i = 0; i <= COUNTRIES.length; i++) {
-      if (COUNTRIES[i].name === x) {
-        setCountryName(COUNTRIES[i].name);
-      }
+  async function requestCountries() {
+    const res = await fetch(`https://date.nager.at/api/v3/AvailableCountries`);
+
+    const json = await res.json();
+
+    setCountryList(json);
+  }
+
+  function countryNameListGen(arr) {
+    const newArray = [];
+    for (let i = 0; i <= arr.length; i++) {
+      newArray.push(arr[i].name);
     }
+
+    return newArray;
   }
 }
 
