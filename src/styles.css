@@ -131,20 +131,26 @@ table {
 /* ----------------- RESET OVER -------------- */
 
 .day-ind {
-  border: solid 5px orange;
+  background-color: rgba(232, 232, 232, 0.8);
   width: auto;
   height: 100px;
+  border-radius: 15px;
 }
 
 .days-tain {
-  border: solid 5px lightcoral;
+  background-color: rgba(179, 179, 179, 0.8);
+  padding: 1% 0%;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: 3px;
+}
+
+.days-tain p {
+  padding: 5%;
 }
 
 .day-head-ind {
-  height: 50px;
+  height: 25px;
   width: auto;
   display: flex;
   justify-content: center;
@@ -152,26 +158,48 @@ table {
 }
 
 .day-head {
-  border: solid 5px lightcoral;
+  background-color: rgba(179, 179, 179, 0.8);
+  padding-top: 1%;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
 }
 
-/* .weekday-labels {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-} */
-
 .day-ind h2 {
-  color: crimson;
+  color: rgba(168, 98, 98, 0.8);
   font-size: 1.25rem;
   font-weight: 600;
-  padding-left: 3%;
-  padding-top: 3%;
+  padding-left: 5%;
+  padding-top: 5%;
 }
 
-button {
-  background-color: aquamarine;
+.title {
+  padding-left: 2%;
+  padding-top: 3%;
+  font-size: 1.5rem;
+}
+
+.btns {
+  padding: 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btns p {
+  padding: 1%;
+}
+
+.btns button {
+  background-color: rgba(236, 101, 101, 0.8);
   margin: 5px;
+  font-family: "Inter", sans-serif;
+  border-radius: 15px;
+  width: 7%;
+  height: 35px;
+  cursor: pointer;
+}
+
+body {
+  font-family: "Inter", sans-serif;
 }

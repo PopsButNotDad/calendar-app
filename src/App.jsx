@@ -37,6 +37,7 @@ function App() {
 
   const lastDay = getLastDay(year, curMonth);
 
+  //enables change through buttons but inteferes through change on drop down
   useEffect(() => {
     setMonth(MONTHS[curMonth]);
   }, [curMonth]);
@@ -47,49 +48,23 @@ function App() {
 
   useEffect(() => {
     requestHolidays();
-  }, []);
+  }, [year, startYear]);
 
   return (
     <div className="App">
       <header className="App-header"></header>
-      <div className="hButtons">
-        <h1>National Holiday Calendar for USA</h1>
-        <button onClick={() => decrementMonth()}>Left Small Arrow</button>
-        <select
-          id="month"
-          value={month}
-          onChange={(e) => {
-            setMonth(e.target.value);
-          }}
-          onBlur={(e) => {
-            setMonth(e.target.value);
-          }}
-        >
-          <option />
-          {MONTHS.map((month) => (
-            <option key={month} value={month}>
-              {month}
-            </option>
-          ))}
-        </select>
-        <select
-          id="year"
-          value={year}
-          onChange={(e) => {
-            setYear(e.target.value);
-          }}
-          onBlur={(e) => {
-            setYear(e.target.value);
-          }}
-        >
-          <option />
-          {YEARS.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-        <button onClick={() => incrementMonth()}>Right Small Arrow</button>
+      <div className="h-Buttons">
+        <div className="title">
+          <h1>National Holiday Calendar for USA</h1>
+        </div>
+        <div className="btns">
+          <button onClick={() => decrementMonth()}>Month--</button>
+          <p>
+            {" "}
+            {month}, {year}{" "}
+          </p>
+          <button onClick={() => incrementMonth()}>Month++</button>
+        </div>
       </div>
       <DayHeader />
       <DayComponent
@@ -129,6 +104,8 @@ function App() {
     } else {
       setCurMonth((curMonth += 1));
     }
+    // setYear(YEARS[startYear]);
+    // setMonth(MONTHS[curMonth]);
   }
 
   function decrementMonth() {
@@ -137,7 +114,10 @@ function App() {
       setStartYear((startYear -= 1));
     } else {
       setCurMonth((curMonth -= 1));
+      setMonth(MONTHS[curMonth]);
     }
+    // setYear(YEARS[startYear]);
+    // setMonth(MONTHS[curMonth]);
   }
 
   async function requestHolidays() {
@@ -149,6 +129,27 @@ function App() {
 
     setHolidays(json);
   }
+
+  // function findYearIndex(arr) {
+  //   let x = 0;
+  //   for (let i = 0; i <= arr.length; i++) {
+  //     if (year === arr[i]) {
+  //       x = i;
+  //     }
+  //   }
+
+  //   return x;
+  // }
+
+  // function findMonthIndex(arr) {
+  //   let x = 0;
+  //   for (let i = 0; i <= arr.length; i++) {
+  //     if (month === arr[i]) {
+  //       x = i;
+  //     }
+  //   }
+  //   setCurMonth(x + 1);
+  // }
 }
 
 export default App;
@@ -202,4 +203,44 @@ fix bug with current day highlighting only the current day and not that day ever
 
 populate calendar with holiday information ---- KINDA DONE
 
+POTENTIAL DROP DOWN
+ <select
+          id="month"
+          value={month}
+          onChange={(e) => {
+            setMonth(e.target.value);
+          }}
+          onBlur={(e) => {
+            setMonth(e.target.value);
+          }}
+        >
+          <option />
+          {MONTHS.map((month) => (
+            <option key={month} value={month}>
+              {month}
+            </option>
+          ))}
+        </select>
+        <select
+          id="year"
+          value={year}
+          onChange={(e) => {
+            setYear(e.target.value);
+          }}
+          onBlur={(e) => {
+            setYear(e.target.value);
+          }}
+        >
+          <option />
+          {YEARS.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+
+
+OTHER NOTES
+
+API HAS INCORRECT DATA, SAYS CHRISTMAS IS ON THE 26TH. MAKE NOTE OF THIS IN THE INTERVIEW. 
 */
