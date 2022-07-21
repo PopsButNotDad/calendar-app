@@ -103,6 +103,11 @@ function App() {
         startDay={startDay}
         lastDay={lastDay}
       />
+      <div className="footer">
+        <p>
+          Powered by the <a href="https://date.nager.at/Api">Nager.Date API</a>
+        </p>
+      </div>
     </div>
   );
 

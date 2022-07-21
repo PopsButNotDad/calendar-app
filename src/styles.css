@@ -193,12 +193,21 @@ table {
   background-color: rgba(236, 101, 101, 0.8);
   margin: 5px;
   font-family: "Inter", sans-serif;
+  font-size: 1rem;
   border-radius: 15px;
   width: 7%;
   height: 35px;
   cursor: pointer;
 }
 
+.footer p {
+  padding-left: 2%;
+}
+
 body {
+  font-family: "Inter", sans-serif;
+}
+
+select {
   font-family: "Inter", sans-serif;
 }
