@@ -21,16 +21,13 @@ const MONTHS = [
 function App() {
   const cd = new Date();
   const YEARS = yearGenerator(50, 50);
-  // const countryNameList = countryNameListGen(COUNTRIES);
   let [startYear, setStartYear] = useState(50);
   let [curMonth, setCurMonth] = useState(cd.getMonth());
   const [holiday, setHolidays] = useState([]);
-  //specifically for the drop down, not for the functionality
   const [month, setMonth] = useState(MONTHS[curMonth]);
-  //specifically for the drop down, not for the functionality
   const [year, setYear] = useState(YEARS[startYear]);
-  const [countryName, setCountryName] = useState("United States");
-  const [countryCode, setCountryCode] = useState("US");
+  const [countryName, setCountryName] = useState();
+  const [countryCode, setCountryCode] = useState();
   const [countryList, setCountryList] = useState([]);
 
   const daysInCurMonth = getDaysInMonth(curMonth + 1, startYear);
@@ -39,7 +36,6 @@ function App() {
 
   const lastDay = getLastDay(year, curMonth);
 
-  //enables change through buttons but inteferes through change on drop down
   useEffect(() => {
     setMonth(MONTHS[curMonth]);
   }, [curMonth]);
@@ -50,7 +46,7 @@ function App() {
 
   useEffect(() => {
     requestHolidays();
-  }, [year, startYear]);
+  }, [year, startYear, countryName, countryCode]);
 
   useEffect(() => {
     requestCountries();
@@ -61,34 +57,39 @@ function App() {
       <header className="App-header"></header>
       <div className="h-Buttons">
         <div className="title">
-          <h1>National Holiday Calendar for {countryName}</h1>
+          <h1>
+            {countryName
+              ? `National Holiday Calendar for ${countryName}`
+              : `Please select a Country`}
+          </h1>
           <select
-            id="country"
-            value={countryName}
             onChange={(e) => {
-              setCountryName(e.target.value);
+              setCountryCode(e.target.value);
+              const country = countryList.find(
+                (x) => x.countryCode === e.target.value
+              );
+              setCountryName(country.name);
             }}
-            onBlur={(e) => {
-              setCountryName(e.target.value);
-            }}
+            id="country"
+            defaultValue={{ label: "United States", value: "US" }}
           >
-            {countryList.map((e) => (
-              <option key={e.name} value={e.name}>
-                {e.name}
+            {countryList.map((option) => (
+              <option key={option.name} value={option.countryCode}>
+                {option.name}
               </option>
             ))}
           </select>
         </div>
         <div className="btns">
           <button onClick={() => decrementMonth()}>
-            {MONTHS[curMonth - 1]}
+            {MONTHS[curMonth - 1] ? MONTHS[curMonth - 1] : "December"}
           </button>
           <p>
             {" "}
             {month}, {year}{" "}
           </p>
           <button onClick={() => incrementMonth()}>
-            {MONTHS[curMonth + 1]}
+            {MONTHS[curMonth + 1] ? MONTHS[curMonth + 1] : "January"}
           </button>
         </div>
       </div>
@@ -130,8 +131,6 @@ function App() {
     } else {
       setCurMonth((curMonth += 1));
     }
-    // setYear(YEARS[startYear]);
-    // setMonth(MONTHS[curMonth]);
   }
 
   function decrementMonth() {
@@ -142,8 +141,6 @@ function App() {
       setCurMonth((curMonth -= 1));
       setMonth(MONTHS[curMonth]);
     }
-    // setYear(YEARS[startYear]);
-    // setMonth(MONTHS[curMonth]);
   }
 
   async function requestHolidays() {
@@ -162,15 +159,6 @@ function App() {
     const json = await res.json();
 
     setCountryList(json);
-  }
-
-  function countryNameListGen(arr) {
-    const newArray = [];
-    for (let i = 0; i <= arr.length; i++) {
-      newArray.push(arr[i].name);
-    }
-
-    return newArray;
   }
 }
 
