@@ -21,17 +21,19 @@ const MONTHS = [
 function App() {
   const cd = new Date();
   const YEARS = yearGenerator(50, 50);
+
   let [startYear, setStartYear] = useState(50);
   let [curMonth, setCurMonth] = useState(cd.getMonth());
+
   const [holiday, setHolidays] = useState([]);
   const [month, setMonth] = useState(MONTHS[curMonth]);
   const [year, setYear] = useState(YEARS[startYear]);
+
   const [countryName, setCountryName] = useState();
   const [countryCode, setCountryCode] = useState();
   const [countryList, setCountryList] = useState([]);
 
   const daysInCurMonth = getDaysInMonth(curMonth + 1, startYear);
-  //need to get what day of the week the selected month starts on.
   const startDay = new Date(year + "-" + (curMonth + 1) + "-1").getDay();
 
   const lastDay = getLastDay(year, curMonth);
