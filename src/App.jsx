@@ -212,68 +212,10 @@ build actual calendar space
 
 fix bug where numerical year/month doesnt change when selecting from drop down menu
 
-fix bug with certain holidays not being on the correct day.
-
 fix bug with current day highlighting only the current day and not that day every month.
 
 populate calendar with holiday information ---- KINDA DONE
 
-  // function findYearIndex(arr) {
-  //   let x = 0;
-  //   for (let i = 0; i <= arr.length; i++) {
-  //     if (year === arr[i]) {
-  //       x = i;
-  //     }
-  //   }
-
-  //   return x;
-  // }
-
-  // function findMonthIndex(arr) {
-  //   let x = 0;
-  //   for (let i = 0; i <= arr.length; i++) {
-  //     if (month === arr[i]) {
-  //       x = i;
-  //     }
-  //   }
-  //   setCurMonth(x + 1);
-  // }
-
-POTENTIAL DROP DOWN
- <select
-          id="month"
-          value={month}
-          onChange={(e) => {
-            setMonth(e.target.value);
-          }}
-          onBlur={(e) => {
-            setMonth(e.target.value);
-          }}
-        >
-          <option />
-          {MONTHS.map((month) => (
-            <option key={month} value={month}>
-              {month}
-            </option>
-          ))}
-        </select>
-        <select
-          id="year"
-          value={year}
-          onChange={(e) => {
-            setYear(e.target.value);
-          }}
-          onBlur={(e) => {
-            setYear(e.target.value);
-          }}
-        >
-          <option />
-          {YEARS.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
 
 
 OTHER NOTES
